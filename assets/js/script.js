@@ -21,10 +21,47 @@
   //
   // TODO: Add code to display the current date in the header of the page.
 
+let today = dayjs();
+let currentHour;
+let eventHoursArray = [
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "9am",
+  "10am",
+  "11am",
+  "12pm",
+  "1pm",
+  "2pm",
+  "3pm",
+  "4pm",
+  "5pm",
+  "6pm"];
 
-//display the current time/date and update it every second
-function Time(){
-  var today = dayjs();
-  $('#currentDay').text(today.format('dddd, MMMM D, YYYY h:mm:ss A'));
+//display the current time/date and update it every second, and call it on page load
+//compare the current time every second. if the hour has passed, change the hour to grey
+//if it is the current hour, change it to red
+//if it is a future hour, change it to green
+function Time (){
+  today = dayjs();
+  $("#currentDay").text(today.format("dddd, MMMM D, YYYY h:mm:ss A"));
+  currentHour = today.format("H");
+
+  for (let i=8; i < (currentHour - 1); i++) {
+    eventHoursArray[i] = "past";
+  }
+
+  for (let j=17; j > (currentHour - 1); j--) {
+    eventHoursArray[j] = "future";
+  }
+
+  eventHoursArray[(currentHour-1)] = "present";
   }
 setInterval(Time, 1000);
+
+console.log(eventHoursArray);
