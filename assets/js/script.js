@@ -42,6 +42,14 @@ let eventHoursArray = [
   "4pm",
   "5pm"];
 let storageArray = [
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
+  "placeholder",
   "",
   "",
   "",
@@ -81,6 +89,23 @@ function Time (){
   currentHour = today.format("H");  
 }
 
+//on page load, check if we have events stored. if so, load them.
+function storageCheck() {
+  if (!localStorage.getItem("dayPlanner")) {
+    localStorage.setItem("dayPlanner", JSON.stringify(storageArray)); 
+  } else {
+    storageArray = JSON.parse(localStorage.getItem("dayPlanner"));
+    return storageArray;
+  }
+}
+
+//append stored events to the page
+function appendEvents() {
+  for (p=8; p < storageArray.length; p++) {
+    $("#hour-"+ (p+1)).children(".description").text(storageArray[p]);
+  }
+}
+
 //function to save to storage
 function saveToStorage(event) {
   event.preventDefault();
@@ -95,4 +120,5 @@ function saveToStorage(event) {
 $(".time-block").children(".btn").on("click", saveToStorage)
 
 properColors();
+appendEvents();
 setInterval(Time, 1000);
