@@ -93,10 +93,24 @@ function saveToStorage(event) {
   textAreaID = parseInt(textAreaID, 10);
   storageArray[textAreaID] = saveToStorage.val();
   localStorage.setItem("dayPlanner", JSON.stringify(storageArray));
+  return storageArray;
+}
+
+function saveToStorageTiny(event) {
+  event.preventDefault();
+  let saveToStorage;
+  let textAreaID;
+  saveToStorage = $(event.target).parent().parent().children(".description");
+  textAreaID = saveToStorage.attr("id");
+  textAreaID = parseInt(textAreaID, 10);
+  storageArray[textAreaID] = saveToStorage.val();
+  localStorage.setItem("dayPlanner", JSON.stringify(storageArray));
+  return storageArray;
 }
 
 //event listener for above function, which listens on every button on the page
 $(".time-block").children(".btn").on("click", saveToStorage)
+$(".fas").on("click", saveToStorageTiny);
 
 properColors();
 storageCheck();
