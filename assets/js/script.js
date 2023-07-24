@@ -106,19 +106,22 @@ function appendEvents() {
   }
 }
 
-//function to save to storage
+//function to save the typed event to storage
 function saveToStorage(event) {
   event.preventDefault();
   let saveToStorage;
+  let textAreaID;
   saveToStorage = $(event.target).parent().children(".description");
-  console.log(saveToStorage.val())
-  //localStorage.setItem
-
+  textAreaID = saveToStorage.attr("id");
+  textAreaID = parseInt(textAreaID, 10);
+  storageArray[textAreaID] = saveToStorage.val();
+  localStorage.setItem("dayPlanner", JSON.stringify(storageArray));
 }
 
 //event listener for above function
 $(".time-block").children(".btn").on("click", saveToStorage)
 
 properColors();
+storageCheck();
 appendEvents();
 setInterval(Time, 1000);
