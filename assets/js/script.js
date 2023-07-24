@@ -41,7 +41,21 @@ let eventHoursArray = [
   "3pm",
   "4pm",
   "5pm"];
+let storageArray = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  ""
+];
 
+//compare the current time to event rows on the page. if the hour has passed, change the hour to grey
+//if it is the current hour, change it to red
+//if it is a future hour, change it to green
 function properColors () {
   currentHour = today.format("H");
   for (let i=8; i < (currentHour - 1); i++) {
@@ -61,14 +75,24 @@ function properColors () {
 
 }
 //display the current time/date and update it every second, and call it on page load
-//compare the current time every second. if the hour has passed, change the hour to grey
-//if it is the current hour, change it to red
-//if it is a future hour, change it to green
 function Time (){
   today = dayjs();
   $("#currentDay").text(today.format("dddd, MMMM D, YYYY h:mm:ss A"));
   currentHour = today.format("H");  
 }
+
+//function to save to storage
+function saveToStorage(event) {
+  event.preventDefault();
+  let saveToStorage;
+  saveToStorage = $(event.target).parent().children(".description");
+  console.log(saveToStorage.val())
+  //localStorage.setItem
+
+}
+
+//event listener for above function
+$(".time-block").children(".btn").on("click", saveToStorage)
 
 properColors();
 setInterval(Time, 1000);
