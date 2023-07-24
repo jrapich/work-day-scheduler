@@ -40,18 +40,10 @@ let eventHoursArray = [
   "2pm",
   "3pm",
   "4pm",
-  "5pm",
-  "6pm"];
+  "5pm"];
 
-//display the current time/date and update it every second, and call it on page load
-//compare the current time every second. if the hour has passed, change the hour to grey
-//if it is the current hour, change it to red
-//if it is a future hour, change it to green
-function Time (){
-  today = dayjs();
-  $("#currentDay").text(today.format("dddd, MMMM D, YYYY h:mm:ss A"));
+function properColors () {
   currentHour = today.format("H");
-
   for (let i=8; i < (currentHour - 1); i++) {
     eventHoursArray[i] = "past";
   }
@@ -61,7 +53,22 @@ function Time (){
   }
 
   eventHoursArray[(currentHour-1)] = "present";
+  
+  for (let index = 8; index <= 16; index++) {
+    $("#hour-"+(index+1)).addClass(eventHoursArray[index]);
+    console.log("hour "+ (index+1) +" is set to the " + eventHoursArray[index]);
   }
-setInterval(Time, 1000);
 
-console.log(eventHoursArray);
+}
+//display the current time/date and update it every second, and call it on page load
+//compare the current time every second. if the hour has passed, change the hour to grey
+//if it is the current hour, change it to red
+//if it is a future hour, change it to green
+function Time (){
+  today = dayjs();
+  $("#currentDay").text(today.format("dddd, MMMM D, YYYY h:mm:ss A"));
+  currentHour = today.format("H");  
+}
+
+properColors();
+setInterval(Time, 1000);
